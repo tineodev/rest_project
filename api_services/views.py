@@ -14,6 +14,8 @@ from .serializers import ServicesSerializer
 # ! Modificar los permisos para usuarios 
 
 class Get_Services(APIView):
+    throttle_scope = 'all'
+
     def get_permissions(self):
         if self.request.method == 'GET':
             return [AllowAny()]

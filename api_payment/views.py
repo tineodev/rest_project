@@ -17,13 +17,16 @@ from .paginations import Paginacion
 
 from django_filters.rest_framework import DjangoFilterBackend
 
+from rest_framework.throttling import AnonRateThrottle
 
-class Get_Payments(viewsets.ReadOnlyModelViewSet):
+
+class Get_Payments(viewsets.ModelViewSet):
     queryset = Payments.objects.all()
     serializer_class = PaymentsSerializer
     pagination_class = Paginacion
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['payment_date', 'expiration_date']
+    throttle_scope = 'payments'
 
 
     def get_permissions(self):

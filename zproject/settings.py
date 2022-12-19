@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'django_filters',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -137,11 +138,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # * Login
 # ! corregir rutas
-LOGIN_URL = 'index' 
-LOGIN_REDIRECT_URL = 'index'
+# LOGIN_URL = 'index' 
+# LOGIN_REDIRECT_URL = 'index'
 
 
 # * Rest Framework
 REST_FRAMEWORK = {
+
     "DEFAULT_FILTER_BACKENDS" : ['django_filters.rest_framework.DjangoFilterBackend'],
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.ScopedRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'payments': '3/day',
+        'all': '7/day',
+        # 'payments': '1000/day',
+        # 'all': '2000/day',
+    }
 }
