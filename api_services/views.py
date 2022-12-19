@@ -43,3 +43,40 @@ class post_services(APIView):
             "message": serializer.errors
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+class rest_services(APIView):
+    permission_classes= [AllowAny]
+
+    def put(self, request,id):
+        query = get_object_or_404(Services, id=id)
+        serializer = ServicesSerializer(query, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                "ok":True,
+                "nessage":"pm_message"
+            })
+
+        return Response({
+            "ok": False,
+            "message": serializer.errors
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+    def get(self, request, id):
+        query = get_object_or_404(Services, id=id)
+        serializer = ServicesSerializer(query)
+        return Response({
+			"ok": True,
+            "data":serializer.data
+        })
+
+    
+    def delete(self, request, id):
+        query = get_object_or_404(Services, id=id)
+        query.delete()
+        return Response({
+            "ok":True,
+            "message": "pm_message"
+		}, status=status.HTTP_202_ACCEPTED)
