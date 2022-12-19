@@ -12,22 +12,22 @@ from .serializers import PaymentsSerializer, Payments_expiredSerializer
 
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 
-class Get_Payments(APIView):
+from rest_framework import viewsets
+from .paginations import Paginacion
+
+
+
+class Get_Payments(viewsets.ReadOnlyModelViewSet):
+    queryset = Payments.objects.all()
+    serializer_class = PaymentsSerializer
+    pagination_class = Paginacion
+
     def get_permissions(self):
         if self.request.method == 'GET':
             return [AllowAny()]
         elif self.request.method == 'POST':
             return [AllowAny()]
         return [AllowAny()]
-
-
-    def get(self, request):
-        query = Payments.objects.all()
-        serializer = PaymentsSerializer(query, many=True)
-        return Response({
-            "ok":True,
-            "data": serializer.data
-        })
 
 
     def post(self, request):        
@@ -46,7 +46,13 @@ class Get_Payments(APIView):
                 serializer2 = Payments_expiredSerializer(data=request.data)
                 if serializer2.is_valid():
                     serializer2.save()
-                    return Response({'ok':True})
+                    return Response({
+                        "ok":True,
+                        "message":"Record added",
+                        "data 1":serializer.data,
+                        "message":"Record added also in Expired Payments",
+                        "data 2":serializer2.data
+                    }, status=status.HTTP_201_CREATED)
 
             return Response({
                 "ok":True,
@@ -60,46 +66,3 @@ class Get_Payments(APIView):
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-
-class Rest_payments(APIView):
-    def get_permissions(self):
-        if self.request.method == 'PUT':
-            return [AllowAny()]
-        elif self.request.method == 'DELETE':
-            return [AllowAny()]
-        return [AllowAny()]
-
-
-    def put(self, request,id):
-        query = get_object_or_404(Payments, id=id)
-        serializer = PaymentsSerializer(query, data=request.data)
-
-        if serializer.is_valid():
-            serializer.save()
-            return Response({
-                "ok":True,
-                "message":"Record updated",
-            })
-
-        return Response({
-            "ok": False,
-            "message": serializer.errors
-        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
-    def get(self, request, id):
-        query = get_object_or_404(Payments, id=id)
-        serializer = PaymentsSerializer(query)
-        return Response({
-			"ok": True,
-            "data":serializer.data
-        })
-
-
-    def delete(self, request, id):
-        query = get_object_or_404(Payments, id=id)
-        query.delete()
-        return Response({
-            "ok":True,
-                "message":"Record deleted",
-		}, status=status.HTTP_202_ACCEPTED)
