@@ -27,8 +27,8 @@ from rest_framework import routers
 
 
 router = routers.DefaultRouter()
-router.register(r'Payments', Get_Payments, 'pm_API')
-router.register(r'Servicios', Servicios, 'pm_API2')
+router.register(r'payments', Get_Payments, 'pm_API')
+router.register(r'services', Servicios, 'pm_API2')
 
 
 schema_view = get_schema_view(
