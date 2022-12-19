@@ -37,7 +37,7 @@ class Get_Payments(viewsets.ModelViewSet):
         return [AllowAny()]
 
 
-    def post(self, request):        
+    def create(self, request):        
         serializer = PaymentsSerializer(data=request.data)
 
         if serializer.is_valid():
@@ -45,12 +45,12 @@ class Get_Payments(viewsets.ModelViewSet):
 
             payment_date = serializer.data.get('payment_date')
             expiration_date = serializer.data.get('expiration_date')
-            amount = serializer.data.get('amount')
             if expiration_date<payment_date:
-                request.data['amount_fee']= 0.2*float(amount)
-                request.data['payment_id']= serializer.data.get('id')
-                print(request.data)
-                serializer2 = Payments_expiredSerializer(data=request.data)
+                record = {
+                    "amount_fee": 0.2*float(serializer.data.get('amount')),
+                    "payment_id":serializer.data.get('id')
+                }
+                serializer2 = Payments_expiredSerializer(data=record)
                 if serializer2.is_valid():
                     serializer2.save()
                     return Response({
