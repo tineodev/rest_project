@@ -14,3 +14,11 @@ class Payments(models.Model):
 
     class Meta:
         db_table='Api-Payments'
+
+
+class Payments_expired(models.Model):
+    payment_id = models.ForeignKey(Payments, on_delete=models.CASCADE)
+    amount_fee = models.DecimalField(max_digits=10, decimal_places=2)
+
+    class Meta:
+        db_table='Api-Payments_expired'

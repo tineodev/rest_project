@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Payments
+from .models import Payments, Payments_expired
 
 
 class PaymentsSerializer(serializers.ModelSerializer):
@@ -12,3 +12,9 @@ class PaymentsSerializer(serializers.ModelSerializer):
         if amount < 0:
             raise serializers.ValidationError('Amount can\'t be negative')
         return data
+
+
+class Payments_expiredSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payments_expired
+        fields = '__all__'
