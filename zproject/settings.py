@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'api_payment',
 
     'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ! corregir rutas
 LOGIN_URL = 'index' 
 LOGIN_REDIRECT_URL = 'index'
+
+
+# * Rest Framework
+REST_FRAMEWORK = {
+    "DEFAULT_FILTER_BACKENDS" : ['django_filters.rest_framework.DjangoFilterBackend'],
+}

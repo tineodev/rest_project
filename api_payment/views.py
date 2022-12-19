@@ -15,12 +15,16 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework import viewsets
 from .paginations import Paginacion
 
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class Get_Payments(viewsets.ReadOnlyModelViewSet):
     queryset = Payments.objects.all()
     serializer_class = PaymentsSerializer
     pagination_class = Paginacion
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['payment_date', 'expiration_date']
+
 
     def get_permissions(self):
         if self.request.method == 'GET':
