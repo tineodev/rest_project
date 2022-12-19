@@ -11,7 +11,7 @@ from .models import Services
 from .serializers import ServicesSerializer
 
 # Create your views here.
-
+# ! Modificar los permisos para usuarios 
 
 class Get_Services(APIView):
     def get_permissions(self):
@@ -52,7 +52,7 @@ class Rest_services(APIView):
         if self.request.method == 'PUT':
             return [AllowAny()]
         elif self.request.method == 'DELETE':
-            return [IsAdminUser()]
+            return [AllowAny()]
         return [AllowAny()]
 
 
