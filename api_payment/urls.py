@@ -6,7 +6,7 @@ from rest_framework import routers
 
 
 router = routers.DefaultRouter()
-router.register('', views.Get_Payments, 'pm_API')
+router.register(r'v1', views.Get_Payments, 'pm_API')
 
 urlpatterns = [
     # path("", views.Get_Payments.as_view(), name='pm_name'),
