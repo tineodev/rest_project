@@ -14,7 +14,13 @@ from .serializers import ServicesSerializer
 
 
 class Get_Services(APIView):
-    permission_classes = [AllowAny]
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        elif self.request.method == 'POST':
+            return [AllowAny()]
+        return [AllowAny()]
+
 
     def get(self, request):
         query = Services.objects.all()
@@ -24,18 +30,14 @@ class Get_Services(APIView):
         "data": serializer.data
         })
 
-
-class post_services(APIView):
-    permission_classes = [AllowAny] #! modificar
-
     def post(self, request):
         serializer = ServicesSerializer(data=request.data)
-
         if serializer.is_valid():
             serializer.save()
             return Response({
                 "ok":True,
-                "message":"pm_message"
+                "message":"Record added",
+                "data":serializer.data
             }, status=status.HTTP_201_CREATED)
             
         return Response({
@@ -44,8 +46,15 @@ class post_services(APIView):
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class rest_services(APIView):
-    permission_classes= [AllowAny]
+
+class Rest_services(APIView):
+    def get_permissions(self):
+        if self.request.method == 'PUT':
+            return [AllowAny()]
+        elif self.request.method == 'DELETE':
+            return [IsAdminUser()]
+        return [AllowAny()]
+
 
     def put(self, request,id):
         query = get_object_or_404(Services, id=id)
@@ -55,14 +64,13 @@ class rest_services(APIView):
             serializer.save()
             return Response({
                 "ok":True,
-                "nessage":"pm_message"
+                "message":"Record updated",
             })
 
         return Response({
             "ok": False,
             "message": serializer.errors
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 
     def get(self, request, id):
         query = get_object_or_404(Services, id=id)
@@ -72,11 +80,12 @@ class rest_services(APIView):
             "data":serializer.data
         })
 
-    
     def delete(self, request, id):
         query = get_object_or_404(Services, id=id)
         query.delete()
         return Response({
             "ok":True,
-            "message": "pm_message"
+                "message":"Record deleted",
 		}, status=status.HTTP_202_ACCEPTED)
+
+
