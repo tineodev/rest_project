@@ -20,6 +20,17 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+
+from api_payment.views import Get_Payments
+from api_services.views import Servicios
+from rest_framework import routers
+
+
+router = routers.DefaultRouter()
+router.register(r'Payments', Get_Payments, 'pm_API')
+router.register(r'Servicios', Servicios, 'pm_API2')
+
+
 schema_view = get_schema_view(
     openapi.Info(
         title="API Payments",
@@ -36,10 +47,12 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('api_users.urls')),
-    path('services/', include('api_services.urls')),
-    path('payments/', include('api_payment.urls')),
+    # path('', include('api_services.urls')),
+    # path('', include('api_payment.urls')),
 
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
+
+urlpatterns += router.urls
