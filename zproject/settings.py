@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     'api_users',
     'api_services',
+    'api_payment',
 
     'rest_framework',
 ]
