@@ -24,3 +24,22 @@ class Get_Services(APIView):
         "data": serializer.data
         })
 
+
+class post_services(APIView):
+    permission_classes = [AllowAny] #! modificar
+
+    def post(self, request):
+        serializer = ServicesSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                "ok":True,
+                "message":"pm_message"
+            }, status=status.HTTP_201_CREATED)
+            
+        return Response({
+            "ok":False,
+            "message": serializer.errors
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
