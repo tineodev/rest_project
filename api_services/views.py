@@ -17,7 +17,7 @@ from .serializers import ServicesSerializer
 
 from rest_framework import viewsets
 
-class Servicios(viewsets.ModelViewSet):
+class Rest_Services(viewsets.ModelViewSet):
     queryset = Services.objects.all()
     serializer_class = ServicesSerializer
     throttle_scope = 'all'

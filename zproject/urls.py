@@ -21,14 +21,15 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 
-from api_payment.views import Get_Payments
-from api_services.views import Servicios
+from api_payment.views import Rest_Payments, Rest_Payments_expired
+from api_services.views import Rest_Services
 from rest_framework import routers
 
 
 router = routers.DefaultRouter()
-router.register(r'payments', Get_Payments, 'pm_API')
-router.register(r'services', Servicios, 'pm_API2')
+router.register(r'services', Rest_Services, 'Services')
+router.register(r'payments', Rest_Payments, 'Payments')
+router.register(r'payments-expired', Rest_Payments_expired, 'Payments-expired')
 
 
 schema_view = get_schema_view(

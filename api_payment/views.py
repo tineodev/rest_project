@@ -2,10 +2,8 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.shortcuts import get_object_or_404
 
 from .models import Payments, Payments_expired
 from .serializers import PaymentsSerializer, Payments_expiredSerializer
@@ -13,17 +11,15 @@ from .serializers import PaymentsSerializer, Payments_expiredSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 
 from rest_framework import viewsets
-from .paginations import Paginacion
-
+from .paginations import Pagination_own
 from django_filters.rest_framework import DjangoFilterBackend
 
-from rest_framework.throttling import AnonRateThrottle
 
 
-class Get_Payments(viewsets.ModelViewSet):
+class Rest_Payments(viewsets.ModelViewSet):
     queryset = Payments.objects.all()
     serializer_class = PaymentsSerializer
-    pagination_class = Paginacion
+    pagination_class = Pagination_own
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['payment_date', 'expiration_date']
     throttle_scope = 'payments'
@@ -73,3 +69,10 @@ class Get_Payments(viewsets.ModelViewSet):
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+
+
+class Rest_Payments_expired(viewsets.ModelViewSet):
+    queryset = Payments_expired.objects.all()
+    serializer_class = Payments_expiredSerializer
+    pagination_class = Pagination_own
+    throttle_scope = 'all'
