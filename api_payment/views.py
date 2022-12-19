@@ -38,13 +38,15 @@ class Get_Payments(APIView):
 
             payment_date = serializer.data.get('payment_date')
             expiration_date = serializer.data.get('expiration_date')
+            amount = serializer.data.get('amount')
             if expiration_date<payment_date:
-                request.data['amount_fee']= 50.0
-                request.data['payment_id_id']= serializer.data.get('id')
+                request.data['amount_fee']= 0.2*float(amount)
+                request.data['payment_id']= serializer.data.get('id')
                 print(request.data)
                 serializer2 = Payments_expiredSerializer(data=request.data)
                 if serializer2.is_valid():
                     serializer2.save()
+                    return Response({'ok':True})
 
             return Response({
                 "ok":True,
