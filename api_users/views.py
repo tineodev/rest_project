@@ -7,6 +7,8 @@ from django.contrib.auth import authenticate, login
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from api_services.models import Services
+
 
 # Create your views here.
 
@@ -34,8 +36,11 @@ def login_view(request):
             login(request, user)
 
             refresh_token = RefreshToken.for_user(request.user)
-            token = str(refresh_token)
-            context = {'token': token}
+            token = str(refresh_token.access_token)
+            context = {
+                'token': token,
+                "services":Services.objects.all()
+                }
             return render(request, 'api_users/index.html', context)
         else:
             error_message = 'Usuario o contraseña inválidos'

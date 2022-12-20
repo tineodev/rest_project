@@ -159,6 +159,12 @@
         </p>
       </main>
 
+      <ul class="list-group">
+      {% for i in services %}      
+        <li class="list-group-item list-group-item-white">{{i}} service ID: {{i.id}}</li>
+      {% endfor %}
+      </ul>
+
       <footer class="mt-auto text-white-50">
         <p>Cover template for <a href="https://getbootstrap.com/" class="text-white text-decoration-none">Bootstrap</a>, by <a href="https://github.com/tineodev" class="text-white text-decoration-none">@TineoDev</a>.</p>
       </footer>
