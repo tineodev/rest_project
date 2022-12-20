@@ -8,7 +8,7 @@
   <div class="card" style="width:40%; margin:auto">
     <div class="card-body">
       <h2>Register</h2>
-      <form method="post" novalidate>
+      <form method="post">
         {% csrf_token %}
         {{form.as_p}}
         <div class="col-12 d-grid mt-3">
