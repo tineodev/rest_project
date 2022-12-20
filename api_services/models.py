@@ -8,7 +8,7 @@ class Services(models.Model):
     logo = models.URLField(max_length=255)
 
     class Meta:
-        db_table = 'Api-Services'
+        db_table = 'Api_Services'
 
     def __str__(self) -> str:
         return self.name

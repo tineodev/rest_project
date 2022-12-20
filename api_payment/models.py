@@ -13,7 +13,7 @@ class Payments(models.Model):
     expiration_date = models.DateField()
 
     class Meta:
-        db_table='Api-Payments'
+        db_table='Api_Payments'
 
 
 class Payments_expired(models.Model):
@@ -21,4 +21,4 @@ class Payments_expired(models.Model):
     amount_fee = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
-        db_table='Api-Payments_expired'
+        db_table='Api_Payments_expired'
