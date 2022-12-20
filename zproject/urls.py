@@ -20,10 +20,14 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-
 from api_payment.views import Rest_Payments, Rest_Payments_expired
 from api_services.views import Rest_Services
 from rest_framework import routers
+
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+
+
 
 
 router = routers.DefaultRouter()
@@ -48,12 +52,13 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('api_users.urls')),
-    # path('', include('api_services.urls')),
-    # path('', include('api_payment.urls')),
 
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+
+    path("token/", TokenObtainPairView.as_view(), name="get_token"),
+    path("token/refresh/", TokenRefreshView.as_view(),  name="refresh_token"),
 ]
 
 urlpatterns += router.urls

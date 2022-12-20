@@ -28,9 +28,7 @@ class Rest_Payments(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.request.method == 'GET':
             return [AllowAny()]
-        elif self.request.method == 'POST':
-            return [AllowAny()]
-        return [AllowAny()]
+        return [IsAuthenticated()]
 
 
     def create(self, request):        
@@ -76,3 +74,8 @@ class Rest_Payments_expired(viewsets.ModelViewSet):
     serializer_class = Payments_expiredSerializer
     pagination_class = Pagination_own
     throttle_scope = 'all'
+
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        return [IsAuthenticated()]

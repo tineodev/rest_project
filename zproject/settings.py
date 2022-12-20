@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-
+from datetime import timedelta
 import environ
 
 env = environ.Env()
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'drf_yasg',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -144,18 +145,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # * Rest Framework
 REST_FRAMEWORK = {
-
     "DEFAULT_FILTER_BACKENDS" : ['django_filters.rest_framework.DjangoFilterBackend'],
-}
-
-REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.ScopedRateThrottle'
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'payments': '3/day',
-        'all': '7/day',
-        # 'payments': '1000/day',
-        # 'all': '2000/day',
-    }
+        # 'payments': '3/day',
+        # 'all': '7/day',
+        'payments': '1000/day',
+        'all': '2000/day',
+    },
+    "DEFAULT_AUTHENTICATION_CLASSES":[
+		"rest_framework_simplejwt.authentication.JWTAuthentication"]
+}
+
+
+# * Token
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+	'AUTH_HEADER_TYPES': ('Bearer',)
 }
