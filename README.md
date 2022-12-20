@@ -1,16 +1,40 @@
 # Proyecto Unidad 05 [Aula 05]
 Este es un proyecto de Silabuz Academy del Curso MPTE BE de la Unidad 05.
 
-# Enlace Railway
-<!-- - **Unidad Django** - [Proyecto](https://djangoportafolio-production-1bad.up.railway.app/) -->
+## Enlace Railway
+- **Unidad Django REST Framework** - [Proyecto](https://restproject-production.up.railway.app/login/)
 
 
 
 ## Proyecto
-Se presenta el proyecto del portafolio personal, donde se hace uso del Framework Django, sus utilidades y sus conexiones a DB, asimismo el uso de sesiones y registro de usuarios, por último la obtencion de IP para fines estadísticos.
+Se presenta la API de pagos, con os modelos Services, Payment_User, Expired_payments y User, las cuales se hace el uso de JWT para autenticar, permisos para operaciones CRUD, paginaciones, filtros, Throttling además de la documentación generada por Django-Yasg
+
+# API
+
+## Uso de la API como Usuario autenticado
+
+El usuario debe acceder al [registro](https://restproject-production.up.railway.app/register/) para registrarse dentro de la DB
+
+Luego, al [login](https://restproject-production.up.railway.app/login/) para solicitar el Token y saber las credenciales
 
 
-## Pre-requisitos 📋
+## Página Principal luego del registro
+
+- Anotar el **User ID** para los campos requeridos en el CRUD
+- Copiar el **Token** generado para realizar las operaciones CRUD
+- Anotar el **Service ID** para los campos requeridos en el CRUD
+
+
+## CRUD
+
+Se requiere usar un Cliente API (Insomnia, Postman, Thunder Client, etc.) para enviar el token en el campo Auth - Bearer
+
+## Autor ✒️
+- **Jean Franco Tineo** - [tineodev](https://github.com/tineodev)
+
+
+
+# Modificar proyecto
 Para que el proyecto funcione correctamente, se deben tener en cuenta varios aspectos:
 - Contar con una versión de Python y PIP dentro del sistema
 - Contar con un módulo de entornos virtuales (virtualenv recomendado)
@@ -67,7 +91,6 @@ Abrir shell, ubicarse en la carpeta <code>django_portfolio</code>
 python manage.py runserver
 ```
 
-
 ## Uso de la API como Administrador
 
 El proyecto hace uso del modelo predeterminado User para los usuarios.
@@ -78,29 +101,3 @@ Por lo tanto para acceder a todas las funcionalidades, crear un superusuario
 ```bash
 python manage.py createsuperuser nombre_superusuario
 ```
-
-## Uso de la API como Usuario autenticado
-
-El usuario debe acceder a la dirección http://localhost:8000/register/ para registrarse dentro de la DB
-
-Luego, a la dirección http://localhost:8000/login/ para loguearse correctamente
-
-
-## Página Principal luego del registro
-
-- Anotar el **User ID** para los campos requeridos en el CRUD
-- Copiar el **Token** generado para realizar las operaciones CRUD
-- Anotar el **Service ID** para los campos requeridos en el CRUD
-
-
-## API
-
-El proyecto cuenta con operaciones CRUD para *Services*, *Payments* y *Payments_expired*
-
-
-## CRUD
-
-Se requiere usar un Cliente API (Insomnia, Postman, Thunder Client, etc.) para enviar el token en el campo Auth - Bearer
-
-## Autor ✒️
-- **Jean Franco Tineo** - [tineodev](https://github.com/tineodev)
