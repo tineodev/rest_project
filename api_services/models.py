@@ -9,3 +9,6 @@ class Services(models.Model):
 
     class Meta:
         db_table = 'Api-Services'
+
+    def __str__(self) -> str:
+        return self.name
