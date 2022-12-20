@@ -32,7 +32,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['restproject-production.up.railway.app']
 
-CSRF_TRUSTED_ORIGINS = ['https://restproject-production.up.railway.app/register/', 'https://restproject-production.up.railway.app/login/']
+CSRF_TRUSTED_ORIGINS = ['https://restproject-production.up.railway.app/', 'https://restproject-production.up.railway.app/login/']
 
 # Application definition
 
