@@ -30,7 +30,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['restproject-production.up.railway.app']
+ALLOWED_HOSTS = ['restproject-production.up.railway.app','127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = ['https://restproject-production.up.railway.app']
 
@@ -53,9 +53,11 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework_simplejwt',
     'whitenoise.runserver_nostatic',    
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+	'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -90,20 +92,25 @@ WSGI_APPLICATION = 'zproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {  
-    'default': {  
-        'ENGINE': 'django.db.backends.mysql',  
-        'NAME': 'railway',  
-        'USER': 'root',  
-        'PASSWORD': 'YpgllmllIHZfi9sjfRNn',  
-        'HOST': 'containers-us-west-44.railway.app',  
-        'PORT': '6145',  
-        'OPTIONS': {  
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
-        }  
-    }  
+# DATABASES = {  
+#     'default': {  
+#         'ENGINE': 'django.db.backends.mysql',  
+#         'NAME': 'railway',  
+#         'USER': 'root',  
+#         'PASSWORD': 'YpgllmllIHZfi9sjfRNn',  
+#         'HOST': 'containers-us-west-44.railway.app',  
+#         'PORT': '6145',  
+#         'OPTIONS': {  
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
+#         }  
+#     }  
+# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -176,3 +183,12 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 	'AUTH_HEADER_TYPES': ('Bearer',)
 }
+
+
+# * Cors
+CORS_ALLOWED_ORIGINS = [
+	'http://127.0.0.1:5500',
+]
+CORS_ORIGIN_WHITELIST = [
+	'http://127.0.0.1:5500',
+]

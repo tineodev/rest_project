@@ -27,10 +27,10 @@ class Rest_Payments(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.request.method == 'GET':
-            return [IsAuthenticated()]
+            return [AllowAny()]
         elif self.request.method == 'POST':
-            return [IsAuthenticated()]
-        return [IsAdminUser()]
+            return [AllowAny()]
+        return [AllowAny()]
 
 
     def create(self, request):        
@@ -79,7 +79,7 @@ class Rest_Payments_expired(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.request.method == 'GET':
-            return [IsAuthenticated()]
+            return [AllowAny()]
         elif self.request.method == 'POST':
-            return [IsAuthenticated()]
-        return [IsAdminUser()]
+            return [AllowAny()]
+        return [AllowAny()]
