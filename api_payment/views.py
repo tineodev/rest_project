@@ -44,7 +44,11 @@ class Rest_Payments(viewsets.ModelViewSet):
             if expiration_date<payment_date:
                 record = {
                     "amount_fee": 0.2*float(serializer.data.get('amount')),
-                    "payment_id":serializer.data.get('id')
+                    "payment_id":serializer.data.get('id'),
+                    "amount": serializer.data.get('amount'),
+                    "service_id": serializer.data.get('service_id'),
+                    "user_id": serializer.data.get('user_id'),
+
                 }
                 serializer2 = Payments_expiredSerializer(data=record)
                 if serializer2.is_valid():

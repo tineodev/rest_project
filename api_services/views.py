@@ -24,4 +24,4 @@ class Rest_Services(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.request.method == 'GET':
             return [AllowAny()]
-        return [IsAdminUser()]
+        return [AllowAny()]

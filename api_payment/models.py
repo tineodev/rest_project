@@ -19,6 +19,9 @@ class Payments(models.Model):
 class Payments_expired(models.Model):
     payment_id = models.ForeignKey(Payments, on_delete=models.CASCADE)
     amount_fee = models.DecimalField(max_digits=10, decimal_places=2)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    service_id = models.ForeignKey(Services, on_delete=models.CASCADE, default=1)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     class Meta:
         db_table='Api_Payments_expired'
