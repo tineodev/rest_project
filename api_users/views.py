@@ -10,6 +10,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from api_services.models import Services
 
 
+from django.contrib.auth import get_user_model
+from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+from rest_framework.decorators import api_view
+
 # Create your views here.
 
 class SignupCreateView(CreateView):
@@ -48,3 +53,9 @@ def login_view(request):
             return render(request, 'registration/login.html', context)
     else:
         return render(request, 'registration/login.html')
+
+@api_view(['GET'])
+def get_user(request, username):
+    User = get_user_model()
+    user = get_object_or_404(User, username=username)
+    return Response({'id': user.id})
