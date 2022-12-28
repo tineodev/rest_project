@@ -22,12 +22,10 @@ from drf_yasg import openapi
 
 from api_payment.views import Rest_Payments, Rest_Payments_expired
 from api_services.views import Rest_Services
+from api_users.views import Rest_User
 from rest_framework import routers
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
-from api_users.views import Rest_User
-
 
 
 router = routers.DefaultRouter()
