@@ -15,6 +15,12 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 
+from django.contrib.auth.models import User
+from .serializers import UserSerializer
+from rest_framework import viewsets
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
+from django.contrib.auth.hashers import make_password
+
 
 
 from django.contrib.auth.models import User
@@ -59,6 +65,7 @@ def login_view(request):
     else:
         return render(request, 'registration/login.html')
 
+
 @api_view(['GET'])
 def get_user(request, username):
     User = get_user_model()
@@ -66,14 +73,19 @@ def get_user(request, username):
     return Response({'id': user.id, 'is_staff':user.is_staff, 'username':user.username})
 
 
+class Rest_User(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    throttle_scope = 'all'
 
-# def register_new(request):
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [IsAdminUser()]
+        elif self.request.method == 'POST':
+            return [AllowAny()]
+        return [IsAdminUser()]
 
-#         user = User.objects.create_user(username=username, password=password)
-#         user.save()
+    def perform_create(self, serializer):
+        password = make_password(self.request.data['password'])
+        serializer.save(password=password)
 
-#         return JsonResponse({'status': 'ok'})
-#     return JsonResponse({'status': 'error'})

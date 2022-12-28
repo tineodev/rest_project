@@ -26,13 +26,14 @@ from rest_framework import routers
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-
+from api_users.views import Rest_User
 
 
 
 router = routers.DefaultRouter()
 router.register(r'services', Rest_Services, 'Services')
 router.register(r'payments', Rest_Payments, 'Payments')
+router.register(r'users', Rest_User, 'Users')
 router.register(r'payments-expired', Rest_Payments_expired, 'Payments-expired')
 
 

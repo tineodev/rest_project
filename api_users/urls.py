@@ -11,6 +11,4 @@ urlpatterns = [
     path('logout/', logout_then_login, name='logout'),
     path('index/', Index.as_view(), name='index'),
     path('users/<str:username>/', get_user, name='get_user'),
-    # path('register-new/', register_new),
-
 ]
