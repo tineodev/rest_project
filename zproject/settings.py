@@ -92,15 +92,14 @@ WSGI_APPLICATION = 'zproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-
 DATABASES = {  
     'default': {  
         'ENGINE': 'django.db.backends.mysql',  
         'NAME': 'railway',  
         'USER': 'root',  
-        'PASSWORD': 'gTqiLAxMvWks2yT0AlT0',  
-        'HOST': 'containers-us-west-95.railway.app',  
-        'PORT': '6024',  
+        'PASSWORD': 'ieMPV2qpJepBX1XAbSJU',  
+        'HOST': 'containers-us-west-143.railway.app',  
+        'PORT': '7953',  
         'OPTIONS': {  
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
         }  
