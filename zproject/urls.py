@@ -27,6 +27,7 @@ from rest_framework import routers
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+# from api_users.views import UserCreateView, UserListView
 
 router = routers.DefaultRouter()
 router.register(r'services', Rest_Services, 'Services')
@@ -51,6 +52,8 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('api_users.urls')),
+    # path('users/all/', UserListView.as_view(), name='user-list'),
+    # path('users/', UserCreateView.as_view(), name='user-create'),
 
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
